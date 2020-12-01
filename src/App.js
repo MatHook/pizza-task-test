@@ -20,7 +20,7 @@ function App() {
     axios.get(url).then(({ data }) => {
       setPizzas(data.pizzas);
     });
-  }, []);
+  }, [url]);
 
   return (
     <div className="wrapper">
