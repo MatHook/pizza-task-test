@@ -6,9 +6,18 @@ import { Home, Cart } from "./pages/index";
 
 function App() {
   const [pizzas, setPizzas] = useState([]);
+  let url = ''
+
+  if (process.env.NODE_ENV === "production") {
+    url = ("https://pizzashoptest.netlify.app/pizzas.json")
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    url = ("http://localhost:3000/pizzas.json")
+  }
 
   useEffect(() => {
-    axios.get("http://localhost:3000/pizzas.json").then(({ data }) => {
+    axios.get(url).then(({ data }) => {
       setPizzas(data.pizzas);
     });
   }, []);
