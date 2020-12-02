@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import Button from "../Button";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const PizzaBlock = ({ name, imageUrl, types, sizes, price }) => {
+const PizzaBlock = ({ name, imageUrl, types, sizes, price, isLoading }) => {
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[0]);
 
@@ -80,13 +80,15 @@ PizzaBlock.propTypes = {
   price: PropTypes.number,
   types: PropTypes.arrayOf(PropTypes.number),
   sizes: PropTypes.arrayOf(PropTypes.number),
+  isLoading: PropTypes.bool,
 };
 
 PizzaBlock.defaultProps = {
   types: [],
   sizes: [],
   price: 5,
-  name: 'Pepperoni'
-}
+  name: "Pepperoni",
+  isLoading: false,
+};
 
 export default PizzaBlock;
