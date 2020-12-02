@@ -16,7 +16,7 @@ const PizzaBlock = ({
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(2);
 
-  const availableTypes = ["thin", "traditional"];
+  const availableTypes = ["thin crust", "pizza dough"];
   const availableSizes = [8, 12, 14];
 
   const onSelectType = (index) => {
