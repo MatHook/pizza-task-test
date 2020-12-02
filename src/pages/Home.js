@@ -21,9 +21,18 @@ const Home = () => {
   const items = useSelector(({ pizzas }) => pizzas.items);
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   const { category, sortBy } = useSelector(({ filters }) => filters);
+  let url = "";
+
+  if (process.env.NODE_ENV === "development") {
+    url = "http://localhost:3001";
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    url = "https://pizza-shop-task.herokuapp.com";
+  }
 
   useEffect(() => {
-    dispatch(fetchPizzas(sortBy, category));
+    dispatch(fetchPizzas(url, sortBy, category));
     // eslint-disable-next-line
   }, [category, sortBy]);
 
