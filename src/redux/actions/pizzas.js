@@ -4,7 +4,7 @@ export const fetchPizzas = () => (dispatch) => {
   let url = "";
 
   if (process.env.NODE_ENV === "production") {
-    url = "https://pizzashoptest.netlify.app/pizzas";
+    url = "https://pizzashoptest.netlify.app/pizzas.json";
   }
 
   if (process.env.NODE_ENV === "development") {
