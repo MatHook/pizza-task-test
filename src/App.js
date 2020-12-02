@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+import { fetchPizzas } from "./redux/actions/pizzas";
+
 import { Route } from "react-router-dom";
 import { Header } from "./components/index";
 import { Home, Cart } from "./pages/index";
+import { useDispatch } from "react-redux";
 
 function App() {
-  const [pizzas, setPizzas] = useState([]);
-  let url = ''
-
-  if (process.env.NODE_ENV === "production") {
-    url = ("https://pizzashoptest.netlify.app/pizzas.json")
-  }
-
-  if (process.env.NODE_ENV === "development") {
-    url = ("http://localhost:3000/pizzas.json")
-  }
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios.get(url).then(({ data }) => {
-      setPizzas(data.pizzas);
-    });
-  }, [url]);
+    dispatch(fetchPizzas());
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
-        <Route path="/" exact render={() => <Home items={pizzas} />} />
+        <Route path="/" exact component={Home} />
         <Route path="/cart" exact component={Cart} />
       </div>
     </div>
