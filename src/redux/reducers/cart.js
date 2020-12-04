@@ -2,9 +2,10 @@ const initialState = {
   items: {},
   totalPrice: 0,
   totalCount: 0,
+  history: [],
 };
 
-const getTotalPrice = (arr) => arr.reduce((sum, obj) => obj.price + sum, 1);
+const getTotalPrice = (arr) => arr.reduce((sum, obj) => obj.price + sum, 0);
 
 const _get = (obj, path) => {
   const [firstKey, ...keys] = path.split(".");
@@ -42,9 +43,17 @@ const cart = (state = initialState, action) => {
         ...state,
         items: newItems,
         totalCount,
-        totalPrice,
+        totalPrice: totalPrice + 3,
       };
     }
+
+    case "ADD_ORDER":
+      return {
+        items: {},
+        totalCount: 0,
+        totalPrice: 0,
+        history: [...state.history, action.payload],
+      };
 
     case "REMOVE_CART_ITEM": {
       const newItems = {

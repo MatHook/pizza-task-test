@@ -1,10 +1,17 @@
 import logoSvg from "../assets/img/pizza-logo.svg";
 import Button from "./Button";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { switchCurrency } from "../redux/actions/pizzas";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const { totalPrice, totalCount } = useSelector(({ cart }) => cart);
+  const isDollar = useSelector(({ pizzas }) => pizzas.isDollar);
+
+  const onSwitchCurrency = () => {
+    dispatch(switchCurrency(!isDollar));
+  };
 
   return (
     <div className="header">
@@ -20,9 +27,14 @@ const Header = () => {
         </Link>
 
         <div className="header__cart">
+          <Button onClick={onSwitchCurrency} outline>
+            {isDollar ? "Dollar" : "Euro"}
+          </Button>
           <Link to="/cart">
             <Button className="button--cart">
-              <span>{totalPrice} $</span>
+              <span>
+                {isDollar ? `${totalPrice} $` : `${totalPrice * 2} €`}
+              </span>
               <div className="button__delimiter" />
               <svg
                 width="18"

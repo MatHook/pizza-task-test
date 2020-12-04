@@ -10,6 +10,7 @@ const PizzaBlock = ({
   types,
   sizes,
   price,
+  currency,
   onClickAddPizza,
   addedCount,
 }) => {
@@ -32,7 +33,7 @@ const PizzaBlock = ({
       id,
       name,
       imageUrl,
-      price,
+      price: currency ? price : price * 2,
       size: availableSizes[activeSize],
       type: availableTypes[activeType],
     };
@@ -74,7 +75,9 @@ const PizzaBlock = ({
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">from {price} $</div>
+        <div className="pizza-block__price">
+          {currency ? `from ${price} $` : `from ${price * 2} €`}
+        </div>
         <Button onClick={onAddPizza} className="button--add" outline>
           <svg
             width="12"

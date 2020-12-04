@@ -22,7 +22,9 @@ const Home = () => {
   const items = useSelector(({ pizzas }) => pizzas.items);
   const cartItems = useSelector(({ cart }) => cart.items);
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
+  const isDollar = useSelector(({ pizzas }) => pizzas.isDollar);
   const { category, sortBy } = useSelector(({ filters }) => filters);
+
   let url = "";
 
   if (process.env.NODE_ENV === "development") {
@@ -73,6 +75,7 @@ const Home = () => {
               <PizzaBlock
                 onClickAddPizza={handleAddPizzaToCart}
                 key={obj.id}
+                currency={isDollar}
                 addedCount={cartItems[obj.id] && cartItems[obj.id].items.length}
                 {...obj}
               />

@@ -1,6 +1,7 @@
 const initialState = {
   items: [],
   isLoaded: false,
+  isDollar: true,
 };
 
 const pizzas = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const pizzas = (state = initialState, action) => {
       return {
         ...state,
         isLoaded: action.payload,
+      };
+    case "SWITCH_CURRENCY":
+      return {
+        ...state,
+        isDollar: action.payload,
       };
     default:
       return state;

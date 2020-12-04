@@ -6,6 +6,7 @@ const CartItem = ({
   name,
   size,
   type,
+  currency,
   totalPrice,
   totalCount,
   onRemove,
@@ -85,7 +86,7 @@ const CartItem = ({
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{totalPrice} $</b>
+        <b>{currency ? `${totalPrice} $` : `${totalPrice * 2} €`}</b>
       </div>
       <div className="cart__item-remove">
         <Button onClick={handleRemoveClick} className="button--circle" outline>

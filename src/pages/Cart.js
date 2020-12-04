@@ -8,12 +8,16 @@ import {
   minusCartItem,
   plusCartItem,
   removeCartItem,
+  checkOutOrder,
 } from "../redux/actions/cart";
 import cartEmptyImage from "../assets/img/empty-cart.png";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { totalPrice, items, totalCount } = useSelector(({ cart }) => cart);
+  const { totalPrice, items, totalCount, history } = useSelector(
+    ({ cart }) => cart
+  );
+  const isDollar = useSelector(({ pizzas }) => pizzas.isDollar);
 
   const pizzas = Object.keys(items).map((key) => {
     return items[key].items[0];
@@ -37,6 +41,14 @@ const Cart = () => {
 
   const onMinusItem = (id) => {
     dispatch(minusCartItem(id));
+  };
+
+  const onCheckout = () => {
+    dispatch(checkOutOrder(items));
+    alert(
+      "Your order successfully placed in queue and will be delivered as soon as possible"
+    );
+    console.log(items)
   };
 
   return (
@@ -121,10 +133,12 @@ const Cart = () => {
             <div className="content__items">
               {pizzas.map((obj) => (
                 <CartItem
+                  key={obj.id}
                   id={obj.id}
                   name={obj.name}
                   size={obj.size}
                   type={obj.type}
+                  currency={isDollar}
                   totalPrice={items[obj.id].totalPrice}
                   totalCount={items[obj.id].items.length}
                   onRemove={onRemoveItem}
@@ -138,11 +152,14 @@ const Cart = () => {
                     Count of pizzas: <b>{totalCount} items</b>
                   </span>
                   <span>
-                    Bill: <b>{totalPrice} $</b>
+                    Bill:{" "}
+                    <b>
+                      {isDollar ? `${totalPrice} $` : `${totalPrice * 2} €`}
+                    </b>
                   </span>
                 </div>
                 <span>
-                  <i>Delivery 1$ for each flavor included</i>
+                  <i>Delivery 3{isDollar ? "$" : "€"} included</i>
                 </span>
                 <div className="cart__bottom-buttons">
                   <a
@@ -164,10 +181,11 @@ const Cart = () => {
                         strokeLinejoin="round"
                       />
                     </svg>
-
-                    <span>Go Back</span>
+                    <Link to="/">
+                      <span>Go Back</span>
+                    </Link>
                   </a>
-                  <div className="button pay-btn">
+                  <div onClick={onCheckout} className="button pay-btn">
                     <span>Check out</span>
                   </div>
                 </div>
@@ -175,9 +193,9 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div class="cart cart--empty">
+          <div className="cart cart--empty">
             <h2>
-              Cart is empty <icon>😕</icon>
+              Cart is empty <i>😕</i>
             </h2>
             <p>
               Most likely you haven't ordered pizza yet.
@@ -185,7 +203,7 @@ const Cart = () => {
               To order pizza, go to the main page.
             </p>
             <img src={cartEmptyImage} alt="Empty cart" />
-            <Link to="/" class="button button--black">
+            <Link to="/" className="button button--black">
               <span>Go Back</span>
             </Link>
           </div>
