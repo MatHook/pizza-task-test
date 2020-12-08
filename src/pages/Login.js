@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
 
     // just an validation
-    if (formData.username.length > 6 && formData.password.length > 6) {
+    if (formData.username.match(mailregex) && formData.password.match(passw)) {
       dispatch(setLoggined(true));
       history.push("/");
       try {
