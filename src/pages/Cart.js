@@ -14,7 +14,7 @@ import cartEmptyImage from "../assets/img/empty-cart.png";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { totalPrice, items, totalCount, history } = useSelector(
+  const { totalPrice, items, totalCount } = useSelector(
     ({ cart }) => cart
   );
   const isDollar = useSelector(({ pizzas }) => pizzas.isDollar);
