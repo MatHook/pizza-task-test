@@ -11,12 +11,12 @@ import {
   checkOutOrder,
 } from "../redux/actions/cart";
 import cartEmptyImage from "../assets/img/empty-cart.png";
+import Button from "../components/Button";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { totalPrice, items, totalCount } = useSelector(
-    ({ cart }) => cart
-  );
+  const { totalPrice, items, totalCount } = useSelector(({ cart }) => cart);
+  const isLoggined = useSelector(({ user }) => user.isLoggined);
   const isDollar = useSelector(({ pizzas }) => pizzas.isDollar);
 
   const pizzas = Object.keys(items).map((key) => {
@@ -48,7 +48,7 @@ const Cart = () => {
     alert(
       "Your order successfully placed in queue and will be delivered as soon as possible"
     );
-    console.log(items)
+    console.log(items);
   };
 
   return (
@@ -185,9 +185,15 @@ const Cart = () => {
                       <span>Go Back</span>
                     </Link>
                   </a>
-                  <div onClick={onCheckout} className="button pay-btn">
-                    <span>Check out</span>
-                  </div>
+                  {isLoggined ? (
+                    <div onClick={onCheckout} className="button pay-btn">
+                      <span>Check out</span>
+                    </div>
+                  ) : (
+                    <Link to="/login">
+                      <Button>Input data to order</Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

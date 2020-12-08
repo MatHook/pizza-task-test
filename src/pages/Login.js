@@ -13,8 +13,11 @@ const Login = () => {
   var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
   const initialFormData = Object.freeze({
-    username: "",
+    email: "",
     password: "",
+    number: "",
+    address: "",
+    name: "",
   });
 
   const [formData, updateFormData] = useState(initialFormData);
@@ -33,12 +36,12 @@ const Login = () => {
     e.preventDefault();
 
     // just an validation
-    if (formData.username.match(mailregex) && formData.password.match(passw)) {
+    if (formData.email.match(mailregex) && formData.password.match(passw)) {
       dispatch(setLoggined(true));
       history.push("/");
       try {
         // Could dipatch user data to user state store
-        console.log(formData.username, formData.password);
+        console.log(formData.email, formData.password);
       } catch (e) {
         console.error(e);
       }
@@ -55,12 +58,12 @@ const Login = () => {
           <input
             className="h2 pl3 br4 ba b--orange"
             type="text"
-            name="username"
+            name="email"
             title="example@mail.com"
             placeholder="Input email"
             onChange={handleChange}
           />
-          {formData.username.match(mailregex) ? (
+          {formData.email.match(mailregex) ? (
             <span></span>
           ) : (
             <span className="login--danger">Email not valid</span>
@@ -83,6 +86,42 @@ const Login = () => {
           ) : (
             <span className="login--danger">Password not valid</span>
           )}
+        </div>
+      </div>
+      <div className="mv3 self-center">
+        <label>First name</label>
+        <div className="flex flex-column">
+          <input
+            className="h2 pl3 br4 ba b--orange"
+            type="text"
+            name="name"
+            placeholder="Input first name"
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="mv2 self-center">
+        <label>Phone number</label>
+        <div className="flex flex-column">
+          <input
+            className="h2 pl3 br4 ba b--orange"
+            type="text"
+            name="number"
+            placeholder="Input phone number"
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="mv2 self-center">
+        <label>Address</label>
+        <div className="flex flex-column">
+          <input
+            className="h2 pl3 br4 ba b--orange"
+            type="text"
+            name="address"
+            placeholder="Input your address"
+            onChange={handleChange}
+          />
         </div>
       </div>
       <div className="self-center">
