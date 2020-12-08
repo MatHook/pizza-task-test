@@ -312,3 +312,12 @@ body {
     }
   }
 }
+
+.login {
+  &--pass {
+    -webkit-text-security: disc;
+  }
+  &--danger {
+    color: red;
+  }
+}

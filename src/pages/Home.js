@@ -23,6 +23,7 @@ const Home = () => {
   const cartItems = useSelector(({ cart }) => cart.items);
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   const isDollar = useSelector(({ pizzas }) => pizzas.isDollar);
+  const isLoggined = useSelector(({ user }) => user.isLoggined);
   const { category, sortBy } = useSelector(({ filters }) => filters);
 
   let url = "";
@@ -76,6 +77,7 @@ const Home = () => {
                 onClickAddPizza={handleAddPizzaToCart}
                 key={obj.id}
                 currency={isDollar}
+                login={isLoggined}
                 addedCount={cartItems[obj.id] && cartItems[obj.id].items.length}
                 {...obj}
               />

@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
 import { Header } from "./components/index";
-import { Home, Cart } from "./pages/index";
+import { Home, Cart, Login } from "./pages/index";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <div className="content">
         <Route path="/" exact component={Home} />
         <Route path="/cart" exact component={Cart} />
+        <Route path="/login" exact component={Login} />
       </div>
     </div>
   );
