@@ -8,6 +8,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const mailregex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+
   const initialFormData = Object.freeze({
     username: "",
     password: "",
@@ -46,19 +49,20 @@ const Login = () => {
   return (
     <form className="flex flex-column justify-center" onSubmit={handleSubmit}>
       <div className="self-center flex-column">
-        <label>Username</label>
+        <label>Email</label>
         <div className="flex flex-column">
           <input
             className="h2 pl3 br4 ba b--orange"
             type="text"
             name="username"
-            placeholder="Input username"
+            title="example@mail.com"
+            placeholder="Input email"
             onChange={handleChange}
           />
-          {formData.username.length < 6 && formData.username.length > 0 ? (
-            <span className="login--danger">More than 6 symbols</span>
-          ) : (
+          {formData.username.match(mailregex) ? (
             <span></span>
+          ) : (
+            <span className="login--danger">Email not valid</span>
           )}
         </div>
       </div>
@@ -69,13 +73,14 @@ const Login = () => {
             className="login--pass h2 pl3 br4 ba b--orange"
             type="text"
             name="password"
+            title="6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter"
             placeholder="Input password"
             onChange={handleChange}
           />
-          {formData.password.length < 6 && formData.password.length > 0 ? (
-            <span className="login--danger">More than 6 symbols</span>
-          ) : (
+          {formData.password.match(passw) ? (
             <span></span>
+          ) : (
+            <span className="login--danger">Password not valid</span>
           )}
         </div>
       </div>
